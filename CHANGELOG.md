@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.3.0] - 2025-08-10
+
+### Added - Phase 3: Circuit Breaker & Automated Recovery
+
+#### Circuit Breaker Pattern
+- Implemented Circuit Breaker pattern with three states (CLOSED, OPEN, HALF-OPEN)
+- Added configurable failure threshold for opening the circuit
+- Added configurable reset timeout for transitioning from OPEN to HALF-OPEN
+- Added configurable success threshold for closing the circuit
+- Integrated Circuit Breaker with health check system
+
+#### Backoff Strategy
+- Enhanced restart mechanism with exponential backoff
+- Added jitter to prevent thundering herd problem
+- Implemented configurable initial interval, max interval, and multiplier
+- Added state tracking for restart attempts
+
+#### Thread Safety
+- Improved thread safety with proper mutex locking
+- Fixed race conditions in shared data structures
+- Enhanced goroutine management for concurrent operations
+
+#### Configuration
+- Added Circuit Breaker configuration options
+- Added Backoff Strategy configuration options
+- Updated YAML schema for new features
+
+#### Testing and Documentation
+- Added unit tests for Circuit Breaker functionality
+- Added unit tests for Backoff Strategy
+- Created test script for Phase 3 features
+- Added documentation for Phase 3 features
+- Updated README with Phase 3 information
+
+### Fixed
+- Resolved double initialization bug in engine startup
+- Fixed race conditions in service state management
+- Improved error handling in restart operations
+
 ## [0.2.0] - 2025-08-07
 
 ### Added - Phase 2: Monitoring and Detection

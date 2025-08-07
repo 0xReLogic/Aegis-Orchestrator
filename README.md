@@ -26,6 +26,12 @@ Ship as a single static binary with no external dependencies, configure through 
 - **Threshold-based alerting**: Generate alerts based on configurable thresholds
 - **Webhook notifications**: Send alerts to external systems
 
+### Phase 3: Circuit Breaker & Automated Recovery
+- **Circuit Breaker pattern**: Prevent cascading failures with state management (CLOSED, OPEN, HALF-OPEN)
+- **Exponential backoff with jitter**: Smart retry mechanism for service restarts
+- **Automated recovery strategies**: Restart, notify, or ignore based on configuration
+- **Thread-safe operations**: Concurrent processing with proper synchronization
+
 ## Getting Started
 
 ### Prerequisites
@@ -63,6 +69,18 @@ services:
     retries: 3
     actions:
       onFailure: "restart"
+      # Phase 3: Circuit Breaker configuration
+      circuitBreaker:
+        enabled: true
+        failureThreshold: 3
+        resetTimeout: 20s
+        successThreshold: 1
+      # Phase 3: Backoff strategy configuration
+      backoff:
+        enabled: true
+        initialInterval: 2s
+        maxInterval: 30s
+        multiplier: 2.0
     metadata:
       latency_threshold: "500"  # milliseconds
       error_rate_threshold: "0.05"  # 5%
@@ -162,6 +180,8 @@ Aegis-Orchestrator is built with a modular architecture:
 - **Alert Manager**: Generates and sends alerts
 
 For more details on Phase 2 features, see [Phase 2 Features Documentation](docs/phase2-features.md).
+
+For more details on Phase 3 features, see [Phase 3 Features Documentation](docs/phase3-features.md).
 
 ## Contributing
 

@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/0xReLogic/Aegis-Orchestrator/pkg/logger"
 	"gopkg.in/yaml.v3"
 )
 
@@ -41,7 +40,25 @@ type ServiceConfig struct {
 
 // ActionConfig defines actions to take on service state changes
 type ActionConfig struct {
-	OnFailure string `yaml:"onFailure"`
+	OnFailure      string               `yaml:"onFailure"`
+	Backoff        BackoffPolicy        `yaml:"backoff,omitempty"`
+	CircuitBreaker CircuitBreakerPolicy `yaml:"circuitBreaker,omitempty"`
+}
+
+// BackoffPolicy defines the strategy for exponential backoff on restarts.
+type BackoffPolicy struct {
+	Enabled         bool          `yaml:"enabled"`
+	InitialInterval time.Duration `yaml:"initialInterval"`
+	MaxInterval     time.Duration `yaml:"maxInterval"`
+	Multiplier      float64       `yaml:"multiplier"`
+}
+
+// CircuitBreakerPolicy defines the configuration for the circuit breaker pattern.
+type CircuitBreakerPolicy struct {
+	Enabled          bool          `yaml:"enabled"`
+	FailureThreshold int           `yaml:"failureThreshold"`
+	ResetTimeout     time.Duration `yaml:"resetTimeout"`
+	SuccessThreshold int           `yaml:"successThreshold"`
 }
 
 // NotificationConfig contains notification settings
@@ -268,43 +285,13 @@ func validateConfig(config *Config) error {
 	return nil
 }
 
-// PrintConfig prints the current configuration
-func PrintConfig(config *Config) {
-	logger.Info("Aegis-Orchestrator Configuration:")
-	logger.Info("Global:")
-	logger.Info("  Log Level: %s", config.Global.LogLevel)
-	logger.Info("  Metrics Enabled: %v", config.Global.MetricsEnabled)
-	logger.Info("  Metrics Port: %d", config.Global.MetricsPort)
+// GetConfigSummary returns a summary of the configuration
+func GetConfigSummary(config *Config) string {
+	summary := fmt.Sprintf("Services: %d, Metrics: %v, Log Analysis: %v, Anomaly Detection: %v",
+		len(config.Services),
+		config.Global.MetricsEnabled,
+		config.Logs.Enabled,
+		config.AnomalyDetection.Enabled)
 
-	logger.Info("Services:")
-	for _, service := range config.Services {
-		logger.Info("  - Name: %s", service.Name)
-		logger.Info("    Type: %s", service.Type)
-		logger.Info("    Endpoint: %s", service.Endpoint)
-		logger.Info("    Interval: %s", service.Interval)
-		logger.Info("    Timeout: %s", service.Timeout)
-		logger.Info("    Retries: %d", service.Retries)
-		logger.Info("    On Failure: %s", service.Actions.OnFailure)
-	}
-
-	logger.Info("Notifications:")
-	logger.Info("  Webhook Enabled: %v", config.Notifications.Webhook.Enabled)
-	if config.Notifications.Webhook.Enabled {
-		logger.Info("  Webhook Endpoint: %s", config.Notifications.Webhook.Endpoint)
-	}
-
-	if config.Logs.Enabled {
-		logger.Info("Log Analysis:")
-		logger.Info("  Enabled: %v", config.Logs.Enabled)
-		logger.Info("  Scan Interval: %s", config.Logs.ScanInterval)
-		logger.Info("  Log Files: %d", len(config.Logs.Files))
-		logger.Info("  Patterns: %d", len(config.Logs.Patterns))
-	}
-
-	if config.AnomalyDetection.Enabled {
-		logger.Info("Anomaly Detection:")
-		logger.Info("  Enabled: %v", config.AnomalyDetection.Enabled)
-		logger.Info("  Detection Interval: %s", config.AnomalyDetection.DetectionInterval)
-		logger.Info("  History Size: %d", config.AnomalyDetection.HistorySize)
-	}
+	return summary
 }
