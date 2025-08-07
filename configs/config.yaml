@@ -10,19 +10,22 @@ global:
 services:
   - name: "example-service"
     type: "http"
-    endpoint: "http://localhost:8080/health"
-    interval: 30s  # Check interval
+    endpoint: "http://localhost:8082/health"
+    interval: 5s   # Check interval
     timeout: 5s    # Request timeout
     retries: 3     # Number of retries before marking as failed
     actions:
-      onFailure: "restart"  # restart, notify, ignore
+      onFailure: "notify"   # restart, notify, ignore
     metadata:
       owner: "team-a"
       priority: "high"
+      latency_threshold: "500"  # milliseconds
+      error_rate_threshold: "0.05"  # 5%
+
 
   - name: "example-tcp-service"
     type: "tcp"
-    endpoint: "localhost:5432"
+    endpoint: "localhost:5433"
     interval: 15s
     timeout: 3s
     retries: 2
@@ -32,10 +35,80 @@ services:
       owner: "team-b"
       priority: "medium"
 
+
+  - name: "example-grpc-service"
+    type: "grpc"
+    endpoint: "localhost:50051"
+    interval: 20s
+    timeout: 5s
+    retries: 2
+    actions:
+      onFailure: "notify"
+    metadata:
+      owner: "team-c"
+      priority: "high"
+      service: "health.v1.HealthService"  # Optional gRPC service name for health check
+      
+  - name: "example-script-service"
+    type: "script"
+    endpoint: "d:\\Project Utama\\Golang\\Aegis-Orchestrator\\scripts\\check_service.ps1"
+    interval: 30s
+    timeout: 10s
+    retries: 1
+    actions:
+      onFailure: "notify"
+    metadata:
+      owner: "team-d"
+      priority: "low"
+      shell: "powershell"
+      args: "-Service ExampleService -Timeout 5"
+
 # Notification settings
 notifications:
   webhook:
-    enabled: false
-    endpoint: "http://example.com/webhook"
+    enabled: true
+    endpoint: "http://localhost:8083/webhook"
     headers:
-      Authorization: "Bearer token"
+      Authorization: "Bearer example-token"
+      Content-Type: "application/json"
+      
+# Log analysis settings
+logs:
+  enabled: true
+  scan_interval: "1m"
+  files:
+    - service: "example-service"
+      path: "d:\\Project Utama\\Golang\\Aegis-Orchestrator\\logs\\example-service.log"
+    - service: "example-tcp-service"
+      path: "d:\\Project Utama\\Golang\\Aegis-Orchestrator\\logs\\example-tcp-service.log"
+  patterns:
+    - name: "OutOfMemory"
+      pattern: "(?i)(out of memory|java\\.lang\\.OutOfMemoryError)"
+      severity: "CRITICAL"
+      description: "Out of memory error detected"
+    - name: "HighCPU"
+      pattern: "(?i)(high cpu usage|cpu at \\d{2,3}%)"
+      severity: "WARNING"
+      description: "High CPU usage detected"
+    - name: "DatabaseError"
+      pattern: "(?i)(database error|sql error|connection refused|timeout)"
+      severity: "WARNING"
+      description: "Database error detected"
+      
+# Anomaly detection settings
+anomaly_detection:
+  enabled: true
+  detection_interval: "30s"
+  history_size: 100
+  thresholds:
+    latency:
+      - service: "example-service"
+        value: 500  # milliseconds
+      - service: "example-grpc-service"
+        value: 200  # milliseconds
+    error_rate:
+      - service: "example-service"
+        value: 0.05  # 5%
+    throughput:
+      - service: "example-service"
+        value: 10  # requests/second

@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -12,9 +13,11 @@ import (
 
 // Config represents the main configuration structure
 type Config struct {
-	Global        GlobalConfig       `yaml:"global"`
-	Services      []ServiceConfig    `yaml:"services"`
-	Notifications NotificationConfig `yaml:"notifications"`
+	Global           GlobalConfig       `yaml:"global"`
+	Services         []ServiceConfig    `yaml:"services"`
+	Notifications    NotificationConfig `yaml:"notifications"`
+	Logs             LogConfig          `yaml:"logs"`
+	AnomalyDetection AnomalyConfig      `yaml:"anomaly_detection"`
 }
 
 // GlobalConfig contains global settings
@@ -51,6 +54,49 @@ type WebhookConfig struct {
 	Enabled  bool              `yaml:"enabled"`
 	Endpoint string            `yaml:"endpoint"`
 	Headers  map[string]string `yaml:"headers"`
+}
+
+// LogConfig contains log analysis settings
+type LogConfig struct {
+	Enabled      bool               `yaml:"enabled"`
+	ScanInterval time.Duration      `yaml:"scan_interval"`
+	Files        []LogFileConfig    `yaml:"files"`
+	Patterns     []LogPatternConfig `yaml:"patterns"`
+}
+
+// LogFileConfig contains configuration for a log file
+type LogFileConfig struct {
+	Service string `yaml:"service"`
+	Path    string `yaml:"path"`
+}
+
+// LogPatternConfig contains configuration for a log pattern
+type LogPatternConfig struct {
+	Name        string `yaml:"name"`
+	Pattern     string `yaml:"pattern"`
+	Severity    string `yaml:"severity"`
+	Description string `yaml:"description"`
+}
+
+// AnomalyConfig contains anomaly detection settings
+type AnomalyConfig struct {
+	Enabled           bool                   `yaml:"enabled"`
+	DetectionInterval time.Duration          `yaml:"detection_interval"`
+	HistorySize       int                    `yaml:"history_size"`
+	Thresholds        AnomalyThresholdConfig `yaml:"thresholds"`
+}
+
+// AnomalyThresholdConfig contains threshold configurations for anomaly detection
+type AnomalyThresholdConfig struct {
+	Latency    []ServiceThreshold `yaml:"latency"`
+	ErrorRate  []ServiceThreshold `yaml:"error_rate"`
+	Throughput []ServiceThreshold `yaml:"throughput"`
+}
+
+// ServiceThreshold contains a threshold for a specific service
+type ServiceThreshold struct {
+	Service string  `yaml:"service"`
+	Value   float64 `yaml:"value"`
 }
 
 // LoadConfig loads configuration from a YAML file and overrides with environment variables
@@ -144,7 +190,7 @@ func validateConfig(config *Config) error {
 	for _, service := range config.Services {
 		// Validate service type
 		serviceType := strings.ToLower(service.Type)
-		if serviceType != "http" && serviceType != "tcp" {
+		if serviceType != "http" && serviceType != "tcp" && serviceType != "grpc" && serviceType != "script" {
 			return fmt.Errorf("invalid service type for %s: %s", service.Name, service.Type)
 		}
 
@@ -167,12 +213,55 @@ func validateConfig(config *Config) error {
 		if onFailure != "restart" && onFailure != "notify" && onFailure != "ignore" {
 			return fmt.Errorf("invalid onFailure action for %s: %s", service.Name, service.Actions.OnFailure)
 		}
+
+		// Validate script type specific configuration
+		if serviceType == "script" {
+			if _, err := os.Stat(service.Endpoint); os.IsNotExist(err) {
+				return fmt.Errorf("script file for service %s does not exist: %s", service.Name, service.Endpoint)
+			}
+		}
 	}
 
 	// Validate webhook configuration if enabled
 	if config.Notifications.Webhook.Enabled {
 		if config.Notifications.Webhook.Endpoint == "" {
 			return fmt.Errorf("webhook endpoint must be specified if webhook notifications are enabled")
+		}
+	}
+
+	// Validate log analysis configuration if enabled
+	if config.Logs.Enabled {
+		if config.Logs.ScanInterval < time.Second*10 {
+			return fmt.Errorf("log scan interval must be at least 10 seconds")
+		}
+
+		for _, logFile := range config.Logs.Files {
+			if logFile.Path == "" {
+				return fmt.Errorf("log file path must be specified for service %s", logFile.Service)
+			}
+		}
+
+		for _, pattern := range config.Logs.Patterns {
+			if pattern.Pattern == "" {
+				return fmt.Errorf("pattern must be specified for log pattern %s", pattern.Name)
+			}
+
+			// Try to compile the pattern to validate it
+			_, err := regexp.Compile(pattern.Pattern)
+			if err != nil {
+				return fmt.Errorf("invalid regex pattern for %s: %v", pattern.Name, err)
+			}
+		}
+	}
+
+	// Validate anomaly detection configuration if enabled
+	if config.AnomalyDetection.Enabled {
+		if config.AnomalyDetection.DetectionInterval < time.Second*5 {
+			return fmt.Errorf("anomaly detection interval must be at least 5 seconds")
+		}
+
+		if config.AnomalyDetection.HistorySize < 10 {
+			return fmt.Errorf("anomaly detection history size must be at least 10")
 		}
 	}
 
@@ -202,5 +291,20 @@ func PrintConfig(config *Config) {
 	logger.Info("  Webhook Enabled: %v", config.Notifications.Webhook.Enabled)
 	if config.Notifications.Webhook.Enabled {
 		logger.Info("  Webhook Endpoint: %s", config.Notifications.Webhook.Endpoint)
+	}
+
+	if config.Logs.Enabled {
+		logger.Info("Log Analysis:")
+		logger.Info("  Enabled: %v", config.Logs.Enabled)
+		logger.Info("  Scan Interval: %s", config.Logs.ScanInterval)
+		logger.Info("  Log Files: %d", len(config.Logs.Files))
+		logger.Info("  Patterns: %d", len(config.Logs.Patterns))
+	}
+
+	if config.AnomalyDetection.Enabled {
+		logger.Info("Anomaly Detection:")
+		logger.Info("  Enabled: %v", config.AnomalyDetection.Enabled)
+		logger.Info("  Detection Interval: %s", config.AnomalyDetection.DetectionInterval)
+		logger.Info("  History Size: %d", config.AnomalyDetection.HistorySize)
 	}
 }

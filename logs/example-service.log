@@ -1,0 +1,20 @@
+[2025-08-07 10:15:00] [INFO] Example service started
+[2025-08-07 10:15:05] [INFO] Processing request from 192.168.1.100
+[2025-08-07 10:15:10] [INFO] Request processed successfully in 150ms
+[2025-08-07 10:15:20] [WARN] High CPU usage detected: CPU at 85%
+[2025-08-07 10:15:30] [INFO] Processing request from 192.168.1.101
+[2025-08-07 10:15:35] [ERROR] Database error: connection refused
+[2025-08-07 10:15:40] [INFO] Retrying database connection
+[2025-08-07 10:15:45] [INFO] Database connection established
+[2025-08-07 10:15:50] [INFO] Processing request from 192.168.1.102
+[2025-08-07 10:15:55] [INFO] Request processed successfully in 180ms
+[2025-08-07 10:16:00] [ERROR] Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+[2025-08-07 10:16:05] [INFO] Service restarting
+[2025-08-07 10:16:10] [INFO] Example service started
+[2025-08-07 10:16:15] [INFO] Processing request from 192.168.1.103
+[2025-08-07 10:16:20] [INFO] Request processed successfully in 120ms[2025-08-07 10:35:00] [ERROR] Out of memory error: Java heap space
+
+[2025-08-07 10:40:00] [ERROR] Database error: connection refused
+
+[2025-08-07 10:45:00] [CRITICAL] Out of memory error: Java heap space at line 1024
+[2025-08-07 10:45:05] [ERROR] High CPU usage: CPU at 98% for 5 minutes

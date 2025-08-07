@@ -1,0 +1,17 @@
+[2025-08-07 10:15:00] [INFO] TCP service started on port 5433
+[2025-08-07 10:15:10] [INFO] Connection accepted from 192.168.1.100:45678
+[2025-08-07 10:15:15] [INFO] Data received: 1024 bytes
+[2025-08-07 10:15:20] [INFO] Data sent: 2048 bytes
+[2025-08-07 10:15:25] [INFO] Connection closed: 192.168.1.100:45678
+[2025-08-07 10:15:30] [INFO] Connection accepted from 192.168.1.101:45679
+[2025-08-07 10:15:35] [WARN] Slow connection detected: 192.168.1.101:45679 (RTT: 500ms)
+[2025-08-07 10:15:40] [ERROR] Connection timeout: 192.168.1.101:45679
+[2025-08-07 10:15:45] [INFO] Connection accepted from 192.168.1.102:45680
+[2025-08-07 10:15:50] [INFO] Data received: 512 bytes
+[2025-08-07 10:15:55] [INFO] Data sent: 1024 bytes
+[2025-08-07 10:16:00] [INFO] Connection closed: 192.168.1.102:45680
+[2025-08-07 10:16:05] [WARN] High CPU usage detected: CPU at 90%
+[2025-08-07 10:16:10] [INFO] Connection accepted from 192.168.1.103:45681
+[2025-08-07 10:16:15] [INFO] Data received: 2048 bytes
+[2025-08-07 10:16:20] [INFO] Data sent: 4096 bytes
+[2025-08-07 10:16:25] [INFO] Connection closed: 192.168.1.103:45681

@@ -1,0 +1,336 @@
+[2025-08-07 10:31:58] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:31:58.1564873+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 10:32:04] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:32:04.9022793+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 10:52:19] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:52:19.2563122+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 10:52:26] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:52:26.2792886+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 10:55:37] {
+  "id": "example-service-status-service-down-example-service",
+  "name": "Service Down",
+  "description": "Service example-service is down",
+  "service_name": "example-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:55:37.8065518+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-service"
+  }
+}
+
+[2025-08-07 10:55:42] {
+  "id": "example-service-status-service-down-example-service",
+  "name": "Service Down",
+  "description": "Service example-service is down",
+  "service_name": "example-service",
+  "severity": "CRITICAL",
+  "state": "RESOLVED",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:55:37.8065518+08:00",
+  "end_time": "2025-08-07T10:55:42.762013+08:00",
+  "labels": {
+    "service": "example-service"
+  }
+}
+
+[2025-08-07 10:55:54] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:55:54.5790686+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 10:56:02] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:56:02.2949127+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 10:57:41] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:57:41.8503877+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 10:57:48] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T10:57:48.4414954+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 11:01:12] {
+  "id": "example-service-status-service-down-example-service",
+  "name": "Service Down",
+  "description": "Service example-service is down",
+  "service_name": "example-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:01:12.9440298+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-service"
+  }
+}
+
+[2025-08-07 11:01:28] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:01:28.5276723+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 11:01:36] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:01:36.066987+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 11:08:11] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:08:11.4689693+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 11:08:51] {
+  "id": "example-service-status-service-down-example-service",
+  "name": "Service Down",
+  "description": "Service example-service is down",
+  "service_name": "example-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:08:51.2738718+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-service"
+  }
+}
+
+[2025-08-07 11:09:02] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:09:02.3788009+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 11:09:09] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:09:09.4947604+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 11:10:48] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:10:48.8763195+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 11:10:55] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:10:55.6171794+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
+[2025-08-07 11:12:28] {
+  "id": "example-script-service-status-service-down-example-script-service",
+  "name": "Service Down",
+  "description": "Service example-script-service is down",
+  "service_name": "example-script-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:12:28.0358408+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-script-service"
+  }
+}
+
+[2025-08-07 11:12:34] {
+  "id": "example-grpc-service-status-service-down-example-grpc-service",
+  "name": "Service Down",
+  "description": "Service example-grpc-service is down",
+  "service_name": "example-grpc-service",
+  "severity": "CRITICAL",
+  "state": "FIRING",
+  "value": 0,
+  "threshold": 0,
+  "start_time": "2025-08-07T11:12:34.8783141+08:00",
+  "end_time": "0001-01-01T00:00:00Z",
+  "labels": {
+    "service": "example-grpc-service"
+  }
+}
+
