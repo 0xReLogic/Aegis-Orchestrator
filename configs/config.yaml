@@ -1,0 +1,41 @@
+# Aegis-Orchestrator Configuration
+
+# Global settings
+global:
+  logLevel: "info"  # debug, info, warn, error
+  metricsEnabled: true
+  metricsPort: 9090
+
+# Service definitions
+services:
+  - name: "example-service"
+    type: "http"
+    endpoint: "http://localhost:8080/health"
+    interval: 30s  # Check interval
+    timeout: 5s    # Request timeout
+    retries: 3     # Number of retries before marking as failed
+    actions:
+      onFailure: "restart"  # restart, notify, ignore
+    metadata:
+      owner: "team-a"
+      priority: "high"
+
+  - name: "example-tcp-service"
+    type: "tcp"
+    endpoint: "localhost:5432"
+    interval: 15s
+    timeout: 3s
+    retries: 2
+    actions:
+      onFailure: "restart"
+    metadata:
+      owner: "team-b"
+      priority: "medium"
+
+# Notification settings
+notifications:
+  webhook:
+    enabled: false
+    endpoint: "http://example.com/webhook"
+    headers:
+      Authorization: "Bearer token"
