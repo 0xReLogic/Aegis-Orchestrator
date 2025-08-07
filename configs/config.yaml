@@ -2,7 +2,7 @@
 
 # Global settings
 global:
-  logLevel: "info"  # debug, info, warn, error
+  logLevel: "debug"  # debug, info, warn, error
   metricsEnabled: true
   metricsPort: 9090
 
@@ -15,7 +15,17 @@ services:
     timeout: 5s    # Request timeout
     retries: 3     # Number of retries before marking as failed
     actions:
-      onFailure: "notify"   # restart, notify, ignore
+      onFailure: "restart"
+      backoff:
+        enabled: true
+        initialInterval: 2s
+        maxInterval: 30s
+        multiplier: 2.0
+      circuitBreaker:
+        enabled: true
+        failureThreshold: 3
+        resetTimeout: 20s
+        successThreshold: 1
     metadata:
       owner: "team-a"
       priority: "high"

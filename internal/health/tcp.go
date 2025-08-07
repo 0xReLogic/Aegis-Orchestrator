@@ -5,6 +5,7 @@ import (
 	"net"
 	"time"
 
+	"github.com/0xReLogic/Aegis-Orchestrator/pkg/logger"
 	"github.com/0xReLogic/Aegis-Orchestrator/pkg/plugin"
 )
 
@@ -49,6 +50,7 @@ func (t *TCPHealthChecker) Configure(options map[string]interface{}) error {
 
 // Check performs a health check and returns the result
 func (t *TCPHealthChecker) Check() (*plugin.HealthCheckResult, error) {
+	logger.Debug("TCP Check for '%s' on endpoint '%s'", t.name, t.endpoint)
 	startTime := time.Now()
 
 	// Attempt to establish a TCP connection

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -46,6 +47,7 @@ type Logger interface {
 type StandardLogger struct {
 	level  LogLevel
 	output io.Writer
+	mu     sync.Mutex
 }
 
 // NewLogger creates a new StandardLogger with the specified log level
@@ -71,6 +73,9 @@ func (l *StandardLogger) log(level LogLevel, format string, args ...interface{})
 	if level < l.level {
 		return
 	}
+
+	l.mu.Lock()
+	defer l.mu.Unlock()
 
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	levelName := levelNames[level]
